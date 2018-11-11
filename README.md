@@ -3,7 +3,7 @@
 This a follow up to [ShitpostBot2000](https://github.com/JSeam2/ShitpostBot2000). With updated models and interface. The data used was from facebook.
 
 ## To make your own shitpost bot
-1. You can go to facebook settings to download your post information. Most of the text data is concentrated under Posts, Comments, Messages, and Groups. We will use these data to train.
+1. You can go to facebook settings to download your post information. Most of the text data is concentrated under Posts, Comments, Messages, and Groups. We will use these data to train. Do remember to download the files as json and not html.
 
 2. Once ready download the data from facebook.
 
