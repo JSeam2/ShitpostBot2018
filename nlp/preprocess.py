@@ -1,6 +1,5 @@
 import os
 import json
-from pprint import pprint
 
 # To change accordingly
 AUTHOR = 'Joshia Seam'
@@ -129,6 +128,45 @@ def get_messages():
     return ls
 
 
+def get_groups():
+    """
+    Get user posts in groups
+    We are only concerned about comments when author = AUTHOR
+    """
+    f = os.path.join(groups, 'your_posts_and_comments_in_groups.json')
+
+    with open(f) as jsonfile:
+        data = json.load(jsonfile)
+
+    ls = []
+    for post in data['group_posts']:
+        try:
+            for d in post['data']:
+                # the comments exists in two forms
+                try:
+                    if d['comment']:
+                        ls.append(d['comment']['comment'])
+                except KeyError:
+                    pass
+
+                try:
+                    if d['comments']:
+                        for x in d['comments']:
+                            if x['author'] == AUTHOR:
+                                ls.append(x['comment'])
+                except KeyError:
+                    pass
+        except KeyError:
+            pass
+
+    return ls
+
+
+def get_all():
+    """
+    Returns a list of all the string data
+    """
+    return get_comments() + get_posts() + get_messages() + get_groups()
+
 if __name__ == "__main__":
-    # print(get_comments())
-    print(get_messages())
+    print(get_all())
