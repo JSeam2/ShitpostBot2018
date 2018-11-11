@@ -4,7 +4,7 @@ This a follow up to [ShitpostBot2017](https://github.com/JSeam2/ShitpostBot2017)
 The goal of the ShitpostBot is to immortalize my social media presence and shitposts using AI. Should I die, there's at least some digital representation of what I once was. The previous model was dumb, so I had to improve it. I guess I would improve the model continuously given advances in NLP techniques.
 
 # Overview
-1. Train model in nlp
+1. Train model in ./nlp
 2. Upload model to aws lambda to serve the model
 3. Present the model in some frontend ui
 
