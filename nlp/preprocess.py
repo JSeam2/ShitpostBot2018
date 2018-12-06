@@ -1,6 +1,7 @@
 import os
 import json
 import re
+import pickle
 
 # To change accordingly
 AUTHOR = 'Joshia Seam'
@@ -213,4 +214,6 @@ def get_all(remove_url=True, only_ascii=True):
 
 if __name__ == "__main__":
     string = get_all()
-    print(string)
+    # save pickle
+    pickle.dump(string, open("save.pkl", "wb"))
+
