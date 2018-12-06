@@ -1,5 +1,6 @@
 import os
 import json
+import re
 
 # To change accordingly
 AUTHOR = 'Joshia Seam'
@@ -37,7 +38,7 @@ def get_comments():
     We are only concerned about /comments/comments.json
 
     Returns:
-        List of Strings, returns list of comments
+        list: List of Strings, returns list of comments
     """
     f = os.path.join(comments, 'comments.json')
 
@@ -62,7 +63,7 @@ def get_posts():
     We are only concerned about /posts/your_posts.json
 
     Returns:
-        List of Strings, returns list of posts
+        list: List of Strings, returns list of posts
     """
     f = os.path.join(posts, 'your_posts.json')
 
@@ -88,7 +89,7 @@ def get_messages():
     We are only concerned about messages when sender_name == author
 
     Returns:
-        List of Strings, returns list of messages
+        list: List of Strings, returns list of messages
     """
     files = get_files(messages)
 
@@ -132,6 +133,9 @@ def get_groups():
     """
     Get user posts in groups
     We are only concerned about comments when author = AUTHOR
+
+    Returns:
+        list: List of Strings, returns list of comments
     """
     f = os.path.join(groups, 'your_posts_and_comments_in_groups.json')
 
@@ -162,11 +166,51 @@ def get_groups():
     return ls
 
 
-def get_all():
+def get_all(remove_url=True, only_ascii=True):
     """
     Returns a list of all the string data
+
+    Args:
+        remove_url (bool): If true remove lines that contain url
+        only_ascii (bool): If true remove non-ascii character
+
+    Returns:
+        list: List of Strings, returns list of cleaned string
+
     """
-    return get_comments() + get_posts() + get_messages() + get_groups()
+    total = get_comments() + get_posts() + get_messages() + get_groups()
+
+    if not remove_url and not only_ascii:
+        return total
+
+    url = \
+        re.compile('(n)?http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]\
+                   |(?:%[0-9a-fA-F][0-9a-fA-F]))+')
+
+    not_ascii = re.compile('[^\x00-\x7f]|[\d()]| - .+\b(?=\n)')
+
+    new_total = []
+
+    for line in total:
+        # flag
+        to_append = True
+
+        if remove_url:
+            if url.search(line):
+                to_append = False
+
+        if to_append:
+            if only_ascii:
+                # We substitute non ascii with blanks
+                line = not_ascii.sub(r'', line)
+
+            # omit empty lines
+            if line.strip() != '':
+                new_total.append(line)
+
+    return new_total
+
 
 if __name__ == "__main__":
-    print(get_all())
+    string = get_all()
+    print(string)
