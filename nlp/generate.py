@@ -34,7 +34,7 @@ def generate(decoder,
         top_i = torch.multinomial(output_dist, 1)[0]
 
         predicted_char = all_characters[top_i]
-        predited += predicted_char
+        predicted += predicted_char
 
         inp = Variable(char_tensor(predicted_char).unsqueeze(0))
 

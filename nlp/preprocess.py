@@ -2,6 +2,7 @@ import os
 import json
 import re
 import pickle
+import itertools
 
 # To change accordingly
 AUTHOR = 'Joshia Seam'
@@ -167,7 +168,7 @@ def get_groups():
     return ls
 
 
-def get_all(remove_url=True, only_ascii=True):
+def get_all(remove_url=True, only_ascii=True, separate_newline=True):
     """
     Returns a list of all the string data
 
@@ -205,15 +206,19 @@ def get_all(remove_url=True, only_ascii=True):
                 # We substitute non ascii with blanks
                 line = not_ascii.sub(r'', line)
 
+            # final processing step
             # omit empty lines
             if line.strip() != '':
-                new_total.append(line)
+                # Converts to lower case
+                new_line = line.lower()
+                new_line = new_line.replace('\n', ' ')
+                new_total.append(new_line)
 
     return new_total
 
 
 if __name__ == "__main__":
     string = get_all()
+    print(string)
     # save pickle
     pickle.dump(string, open("data.pkl", "wb"))
-

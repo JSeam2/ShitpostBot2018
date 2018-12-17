@@ -24,8 +24,8 @@ argparser.add_argument("--print_every", type=int, default=100)
 argparser.add_argument("--hidden_size", type=int, default=100)
 argparser.add_argument("--n_layers", type=int, default=2)
 argparser.add_argument("--learning_rate", type=float, default=0.01)
-argparser.add_argument("--chunk_len", type=int, default=200)
 argparser.add_argument("--batch_size", type=int, default=100)
+argparser.add_argument("--chunk_size", type=int, default=100)
 argparser.add_argument("--shuffle", action="store_true")
 argparser.add_argument("--cuda", action="store_true")
 
@@ -41,19 +41,22 @@ with open(args.data_filename, "rb") as f:
     data = pickle.load(f)
 
 
-def random_training_set(chunk_len, batch_size):
+def random_training_data(batch_size):
     """
-    Generate a random training set
+    Generate a random training data from pkl
 
     Args:
-        chunk_len: Int, size of each chunk
         batch_size: Int, size of each batch
     """
-    inp = torch.LongTensor(batch_size, chunk_len)
+    input_var = torch.LongTensor(batch_size, chunk_len)
     target = torch.LongTensor(batch_size, chunk_len)
 
+    for batch in range(batch_size):
+        start = random.randint(0, len(data) - args.chunk_size)
+        end = start + args.chunk_size + 1
+
     for bi in range(batch_size):
-        start_index = random.randint(0, len(data) - chunk_len)
+        start_index = random.randint(0, len(data) - args.chunk_size)
         end_index = start_index + chunk_len + 1
         chunk = data[start_index:end_index]
         inp[bi] = char_tensor(chunk[:-1])
@@ -69,7 +72,7 @@ def random_training_set(chunk_len, batch_size):
     return inp, target
 
 
-def train(inp, target):
+def train(inp, target, decoder, criterion, optimizer):
     """
     Function to train the neural net
 
@@ -92,9 +95,9 @@ def train(inp, target):
     # backprop
     loss.backward()
 
-    decoder_optimizer.step()
+    optimizer.step()
 
-    return loss.data[0] / args.chunk_len
+    return loss.item() / args.chunk_len
 
 
 def save(decoder):
@@ -109,46 +112,50 @@ def save(decoder):
     print("Saved model as {}".format(save_filename))
 
 
-# get model type and initialize model
-decoder = None
-if args.model_type == "char_lstm":
+def main():
+    # get model type and initialize model
     decoder = CharLSTM(
         n_characters,
         args.hidden_size,
         n_characters,
         n_layers=args.n_layers,)
 
-# Use ADAM optimizer
-decoder_optimizer = torch.optim.Adam(decoder.parameters(),
-                                     lr=args.learning_rate)
+    # Use ADAM optimizer
+    optimizer = torch.optim.Adam(decoder.parameters(),
+                                         lr=args.learning_rate)
 
-# Use CrossEntropy to Optimize
-criterion = nn.CrossEntropyLoss()
+    # Use CrossEntropy to Optimize
+    criterion = nn.CrossEntropyLoss()
 
-if args.cuda:
-    decoder.cuda()
+    if args.cuda:
+        decoder.cuda()
 
-start = time.time()
-all_losses = []
-loss_avg = 0
+    start = time.time()
+    all_losses = []
+    loss_avg = 0
 
-try:
-    print("Training for {} epochs".format(args.epochs))
+    try:
+        print("Training for {} epochs".format(args.epochs))
 
-    for epoch in tqdm(range(1, args.epochs + 1)):
-        loss = train(*random_training_set(args.chunk_len, args.batch_size))
-        loss_avg += loss
+        for epoch in tqdm(range(1, args.epochs + 1)):
+            loss = train(*random_training_set(args.chunk_len, args.batch_size),
+                         decoder,
+                         criterion,
+                         optimizer)
+            loss_avg += loss
 
-        if epoch % args.print_every == 0:
-            print("[{} ({} {}%) {:.4f}]".format(time_since(start), epoch,
-                                                epoch/args.epochs*100,
-                                                loss))
-            print(generate(decoder, "Wh", 100, cuda=args.cuda), "\n")
+            if epoch % args.print_every == 0:
+                print("[{} ({} {}%) {:.4f}]".format(time_since(start), epoch,
+                                                    epoch/args.epochs*100,
+                                                    loss))
+                print(generate(decoder, "Wh", 100, cuda=args.cuda), "\n")
 
-    print("Saving...")
-    save(decoder)
+        print("Saving...")
+        save(decoder)
 
-except KeyboardInterrupt:
-    print("Saving before quitting...")
-    save(decoder)
+    except KeyboardInterrupt:
+        print("Saving before quitting...")
+        save(decoder)
 
+if __name__ == "__main__":
+    main()
