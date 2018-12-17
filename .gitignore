@@ -1,3 +1,4 @@
 *.zip
 facebook-joshiaseam/
 *.pkl
+__pycache__

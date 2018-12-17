@@ -119,7 +119,6 @@ def init_vocab(vocab_path="./vocab.pkl"):
         raise ValueError("Vocab file {} does not exist")
 
     else:
-        reverse_vocab =
         with open(vocab_path, "rb") as f:
             vocab_list = pickle.load(f)
         vocab = dict([(x, y) for (y, x) in enumerate(vocab_list)])

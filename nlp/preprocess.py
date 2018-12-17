@@ -215,5 +215,5 @@ def get_all(remove_url=True, only_ascii=True):
 if __name__ == "__main__":
     string = get_all()
     # save pickle
-    pickle.dump(string, open("save.pkl", "wb"))
+    pickle.dump(string, open("data.pkl", "wb"))
 
