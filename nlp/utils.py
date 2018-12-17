@@ -1,7 +1,15 @@
 import re
 import pickle
 import os
+import unidecode
+import string
+import time
+import math
+import torch
 
+# For strings
+all_characters = string.printable
+n_characters = len(all_characters)
 
 # Regular expression to tokenize
 punctuation_re = re.compile(r"([.,!?\"':;)(])")
@@ -142,6 +150,58 @@ def data_to_token_id(data_path,
     """
     # TODO
     pass
+
+
+def read_file(filename):
+    """
+    Read file name
+
+    Args:
+        filename: String, path to file
+
+    Returns:
+        _file, len(file)
+    """
+    _file = unidecode.unidecode(open(filename).read())
+    return _file, len(_file)
+
+
+def char_tensor(string):
+    """
+    Turn a string into a character tensor used for character based learning
+
+    Args:
+        string: String, a string to convert to tensor
+
+    Returns:
+        tensor: pytorch tensor
+    """
+    tensor = torch.zeros(len(string)).long()
+
+    for c in range(len(string)):
+        try:
+            tensor[c] = all_characters.index(string[c])
+
+        except:
+            continue
+
+    return tensor
+
+
+def time_since(since):
+    """
+    Time spent training
+
+    Args:
+        since: Int, initial time
+
+    Return:
+        String, time
+    """
+    s = time.time() - since
+    m = math.floor(s/60)
+    s -= m * 60
+    return "{}m {}s".format(m, s)
 
 
 if __name__ == "__main__":
