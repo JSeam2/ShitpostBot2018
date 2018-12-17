@@ -8,7 +8,7 @@ from models_rnn import *
 from utils import *
 
 def generate(decoder,
-             prime_str="A"
+             prime_str="A",
              predict_len=100,
              temperature=0.8,
              cuda=False):

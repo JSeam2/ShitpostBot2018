@@ -129,7 +129,7 @@ def init_vocab(vocab_path="./vocab.pkl"):
 
 def sentence_to_token_id(sentence,
                          vocabulary,
-                         tokenizer=basic_tokenizer,
+                         tokenizer=simple_tokenizer,
                          normalize_digits=False):
     """
     Convert a string to a list of integer token id
@@ -141,7 +141,7 @@ def sentence_to_token_id(sentence,
 def data_to_token_id(data_path,
                     target_path,
                     vocab_path,
-                    tokenizer=basic_tokenizer,
+                    tokenizer=simple_tokenizer,
                     normalize_digits=False):
 
     """

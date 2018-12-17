@@ -4,17 +4,17 @@ models developed
 import math
 import time
 import torch
-import torch.n as nn
+import torch.nn as nn
 from torch.autograd import Variable
 
-from .helpers import *
+from utils import *
 
 
 class CharLSTM(nn.Module):
     """
     Model for CharLSTM
     """
-    def __init__(self, input_size, hidden_size, output_size, n_layers=2):
+    def __init__(self, input_size, hidden_size, output_size, n_layers=1):
         """
         Initial configuration
 
@@ -65,7 +65,7 @@ class CharLSTM(nn.Module):
             output: Array, of forward pass
             hidden: Array, of forward pass
         """
-        encoded = self.encoder(input_var)
+        encoded = self.encoder(input_var.view(1,-1))
         output, hidden = self.rnn(encoded.view(1, 1, -1), hidden)
         output = self.decoder(output.view(1, -1))
         return output, hidden
@@ -80,7 +80,7 @@ class CharLSTM(nn.Module):
         Returns:
             Array of 0s
         """
-        return Variable(torch.zeros(self,n_layers,
+        return Variable(torch.zeros(self.n_layers,
                                     batch_size,
                                     self.hidden_size))
 
@@ -140,7 +140,7 @@ class CharGRU(nn.Module):
             output: Array, of forward pass
             hidden: Array, of forward pass
         """
-        encoded = self.encoder(input_var)
+        encoded = self.encoder(input_var.view(1, -1))
         output, hidden = self.rnn(encoded.view(1, 1, -1), hidden)
         output = self.decoder(output.view(1, -1))
         return output, hidden
