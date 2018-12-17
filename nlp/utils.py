@@ -22,6 +22,13 @@ _EOS = "_EOS"
 _UNK = "_UNK"
 _START_VOCAB = [_PAD, _GO, _EOS, _UNK]
 
+# Special tokenid
+_PAD_ID = 0
+_GO_ID = 1
+_EOS_ID = 2
+_UNK_ID = 3
+
+
 def simple_tokenizer(sentence):
     """
     Converts a sentence into a list of tokens
@@ -40,8 +47,8 @@ def simple_tokenizer(sentence):
 
 
 def create_vocab(max_vocab_size,
-                 vocab_path="./vocab.pkl",
-                 data_path="./data.pkl",
+                 vocab_path="vocab.pkl",
+                 data_path="data.pkl",
                  tokenizer=simple_tokenizer,
                  normalize_digits=False):
     """
@@ -57,8 +64,8 @@ def create_vocab(max_vocab_size,
         normalize_digits: Bool, when true sets all digits to 0
     """
     if os.path.isfile(vocab_path):
-        print("Vocab file {} already exists. Delete or backup\
-              elsewhere".format(vocab_path))
+        print("Vocab file {} already exists. Delete or backup elsewhere"
+              .format(vocab_path))
         return
 
     else:
@@ -133,22 +140,88 @@ def sentence_to_token_id(sentence,
                          normalize_digits=False):
     """
     Convert a string to a list of integer token id
+
+    Turns
+    Input sentence:
+    ["This", "is", "a", "pear"]
+    Input vocab:
+    {"This": 1, "is": 4, "a": 5, "pear": 6}
+
+    Into a string of integers mapping to the words
+    [1, 4, 5, 6]
+
+    Args:
+        sentence: String, from data.pkl file to convert to tokenid
+        vocabulary: Dictionary, maps tokens to integers
+        tokenizer: Function, function used to tokenize, this is
+            simple_tokenizer by default
+        normalize_digits: Boolean, if true replace all digits with 0
+            False by default
+
+    Returns:
+        List of Int, where the int are tokenid for the sentence
     """
-    # TODO convert sentence to tokens
-    pass
+    words = tokenizer(sentence)
+
+    # mark with _UNK_ID if we do not recognize the words
+    if normalize_digits:
+        return [vocabulary.get(digits_re.sub("0", w), _UNK_ID) for w in words]
+    else:
+        return [vocabulary.get(w, _UNK_ID) for w in words]
 
 
-def data_to_token_id(data_path,
-                    target_path,
-                    vocab_path,
+def data_to_token_id(target_path="token_id.pkl",
+                    data_path="data.pkl",
+                    vocab_path="vocab.pkl",
                     tokenizer=simple_tokenizer,
                     normalize_digits=False):
 
     """
     Tokenize a data file into integer token id
+    Calls sentence_to_token_id and saves the result to target_path
+
+    Args:
+        target_path: String, path to the place store tokenid
+            "token_id.pkl" by default
+        data_path: String, path to pkl file containing list of strings
+            "data.pkl", by default
+        vocab_path: String, path to pkl file containing vocab
+            "vocab.pkl", by default
+        tokenizer: Function, function used to tokenize, this is
+            simple_tokenizer by default
+        normalize_digits: Boolean, if true replace all digits with 0
+            False by default
     """
-    # TODO
-    pass
+    if os.path.isfile(target_path):
+        print("Target file {} already exists. Delete or backup elsewhere"
+              .format(target_path))
+        return
+
+    else:
+        print("Tokenizing data and creating target file at {}"
+              .format(target_path))
+        print("Using data file at {}".format(data_path))
+        print("Using vocab file at {}".format(vocab_path))
+
+        # initialize vocab
+        vocab, _ = init_vocab(vocab_path)
+
+        with open(data_path, "rb") as datafile:
+            with open(target_path, "wb") as tokenfile:
+                data = pickle.load(datafile)
+
+                token_ls = []
+                counter = 0
+                for line in data:
+                    counter += 1
+                    if counter % 1000 == 0:
+                        print('\ttokenizing line {}'.format(counter))
+
+                    token_ids = sentence_to_token_id(line, vocab, tokenizer,
+                                                    normalize_digits)
+                    token_ls.append(token_ids)
+
+                pickle.dump(token_ls, tokenfile)
 
 
 def read_file(filename):
@@ -204,4 +277,8 @@ def time_since(since):
 
 
 if __name__ == "__main__":
-    print(simple_tokenizer("This is a some string."))
+    # create vocab file
+    create_vocab(10000)
+
+    # create token file
+    data_to_token_id()
