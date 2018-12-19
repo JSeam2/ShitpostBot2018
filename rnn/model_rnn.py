@@ -3,7 +3,7 @@ import torch.nn as nn
 
 class LSTMModel(nn.Module):
     def __init__(self, num_token, num_input, num_hidden, num_layer,
-                 dropout=0.5, tie_weights=False):
+                 dropout=0.5):
         """
         We used an augmented LSTM model
 
@@ -41,7 +41,7 @@ class LSTMModel(nn.Module):
         self.num_hidden = num_hidden
         self.num_layers = num_layer
 
-    def init_weights(self, hidden):
+    def init_weights(self):
         """
         Initialize weights
         """
@@ -75,7 +75,7 @@ class LSTMModel(nn.Module):
 
 class GRUModel(nn.Module):
     def __init__(self, num_token, num_input, num_hidden, num_layer,
-                 dropout=0.5, tie_weights=False):
+                 dropout=0.5):
         """
         This is similar to LSTMModel but using GRU
 

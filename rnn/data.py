@@ -47,9 +47,9 @@ class Corpus(object):
             self.data = pickle.load(f)
 
         # Split data
-        self.train_size = split[0] * len(self.data)
-        self.valid_size = split[1] * len(self.data)
-        self.test_size = split[2] * len(self.data)
+        self.train_size = int(round(split[0] * len(self.data)))
+        self.valid_size = int(round(split[1] * len(self.data)))
+        self.test_size = int(round(split[2] * len(self.data)))
         self.train = self.tokenize(self.data[0:self.train_size])
         self.valid = self.tokenize(
             self.data[self.train_size:self.train_size + self.valid_size])
@@ -80,7 +80,7 @@ class Corpus(object):
 
             for word in words:
                 # tokenize contents
-                ids[token] = self.dictionary.word2idx[word]
+                ids[token_num] = self.dictionary.word2idx[word]
                 token_num += 1
 
         return ids
