@@ -197,7 +197,28 @@ def get_all(remove_url=True, only_ascii=True, separate_newline=True):
         list: List of Strings, returns list of cleaned string
 
     """
-    total = get_comments() + get_posts() + get_messages() + get_groups()
+    total = []
+
+    try:
+        total.extend(get_comments())
+    except TypeError:
+        # We got a None
+        pass
+
+    try:
+        total.extend(get_posts())
+    except TypeError:
+        pass
+
+    try:
+        total.extend(get_messages())
+    except TypeError:
+        pass
+
+    try:
+        total.extend(get_groups())
+    except TypeError:
+        pass
 
     if not remove_url and not only_ascii:
         return total
