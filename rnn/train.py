@@ -197,6 +197,7 @@ def train():
     total_loss = 0.
     start_time = time.time()
     num_tokens = len(corpus.dictionary)
+    print("TAKE NOTE: NUM TOKENS USED: {}".format(num_tokens))
     hidden = model.init_hidden(args.batch_size)
 
     for batch, i in enumerate(range(0, train_data.size(0) - 1, args.bptt)):
@@ -269,7 +270,7 @@ try:
         # Save the model if the validation loss is the best we've seen so far
         if not best_val_loss or val_loss < best_val_loss:
             with open(args.save, 'wb') as f:
-                torch.save(model, f)
+                torch.save(model.state_dict(), f)
             best_val_loss = val_loss
 
         else:
@@ -280,11 +281,6 @@ except KeyboardInterrupt:
     print('-' * 89)
     print('Exiting from training early')
 
-
-# Load the best saved model
-with open(args.save, 'rb') as f:
-    model = torch.load(f)
-    model.rnn.flatten_parameters()
 
 # Run on test data
 test_loss = evaluate(test_data)

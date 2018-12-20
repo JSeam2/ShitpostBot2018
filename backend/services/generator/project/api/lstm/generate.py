@@ -1,8 +1,10 @@
 import torch
 from torch.autograd import Variable
-from model_rnn import LSTMModel
 
-import data
+from project.api.lstm.model_rnn import LSTMModel
+
+from project.api.lstm import data
+
 
 def check_cuda():
     """
@@ -80,9 +82,6 @@ def generate_lstm(data_path='data.pkl' ,
 
 
 if __name__ == "__main__":
-    for x in (0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.999999999, 1.0):
-        print("___________________")
-        print("Temperature=", x)
-        for y in range(3):
-            print("{}:   {}".format(y, generate_lstm(temperature=x)))
-            print()
+    for x in range(10):
+        print("{}:   {}".format(x, generate_lstm()))
+        print()
