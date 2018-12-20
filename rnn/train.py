@@ -18,9 +18,9 @@ parser.add_argument('--data', type=str, default="data.pkl",
                     help='path to data')
 parser.add_argument('--model', type=str, default='lstm',
                     help='Type of rnn (lstm, gru) lstm by default')
-parser.add_argument('--emsize', type=int, default=200,
+parser.add_argument('--emsize', type=int, default=300,
                     help='Size of word embedding')
-parser.add_argument('--nhidden', type=int, default=200,
+parser.add_argument('--nhidden', type=int, default=300,
                     help='Number of hidden units per layer')
 parser.add_argument('--nlayers', type=int, default=2,
                     help='Number of layers')
@@ -32,9 +32,9 @@ parser.add_argument('--epochs', type=int, default=40,
                     help='upper epoch limit')
 parser.add_argument('--batch_size', type=int, default=20, metavar='N',
                     help='batch size')
-parser.add_argument('--bptt', type=int, default=35,
+parser.add_argument('--bptt', type=int, default=25,
                     help='sequence length')
-parser.add_argument('--dropout', type=float, default=0.2,
+parser.add_argument('--dropout', type=float, default=0.5,
                     help='Dropout applied to layers (0 = no dropout)')
 parser.add_argument('--seed', type=int, default=1234,
                     help='random seed')
