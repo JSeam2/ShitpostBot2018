@@ -111,7 +111,7 @@ def get_messages():
             with open(f) as jsonfile:
                 data = json.load(jsonfile)
         except FileNotFoundError:
-            print("{} is not found, skipping."format(f))
+            print("{} is not found, skipping.".format(f))
             continue
 
         try:
@@ -169,7 +169,7 @@ def get_groups():
                 try:
                     if d['comment']:
                         ls.append(d['comment']['comment'])
-               except KeyError:
+                except KeyError:
                     pass
 
                 try:
