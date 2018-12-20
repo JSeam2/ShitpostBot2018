@@ -20,7 +20,7 @@ def check_cuda():
 def generate_lstm(data_path='data.pkl' ,
                   save_path='lstm.pt',
                   sentence_len=25,
-                  temperature=2.0,
+                  temperature=0.7,
                   seed=1234):
     """
     Generates sentence based on trained lstm model
