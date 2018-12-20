@@ -44,8 +44,13 @@ def get_comments():
     """
     f = os.path.join(comments, 'comments.json')
 
-    with open(f) as jsonfile:
-        data = json.load(jsonfile)
+    try:
+        with open(f) as jsonfile:
+            data = json.load(jsonfile)
+
+    except FileNotFoundError:
+        print("{} is not found, cannot extract comments".format(f))
+        return
 
     ls = []
     for c in data['comments']:
@@ -69,8 +74,12 @@ def get_posts():
     """
     f = os.path.join(posts, 'your_posts.json')
 
-    with open(f) as jsonfile:
-        data = json.load(jsonfile)
+    try:
+        with open(f) as jsonfile:
+            data = json.load(jsonfile)
+    except FileNotFoundError:
+        print("{} is not found, cannot extract posts.".format(f))
+        return
 
     ls = []
     for c in data['status_updates']:
@@ -98,8 +107,12 @@ def get_messages():
     ls = []
 
     for f in files:
-        with open(f) as jsonfile:
-            data = json.load(jsonfile)
+        try:
+            with open(f) as jsonfile:
+                data = json.load(jsonfile)
+        except FileNotFoundError:
+            print("{} is not found, skipping."format(f))
+            continue
 
         try:
             for message in data['messages']:
@@ -141,8 +154,12 @@ def get_groups():
     """
     f = os.path.join(groups, 'your_posts_and_comments_in_groups.json')
 
-    with open(f) as jsonfile:
-        data = json.load(jsonfile)
+    try:
+        with open(f) as jsonfile:
+            data = json.load(jsonfile)
+    except FileNotFoundError:
+        print("{} is not found. Cannot get group data".format(f))
+        return
 
     ls = []
     for post in data['group_posts']:
@@ -152,7 +169,7 @@ def get_groups():
                 try:
                     if d['comment']:
                         ls.append(d['comment']['comment'])
-                except KeyError:
+               except KeyError:
                     pass
 
                 try:

@@ -20,7 +20,7 @@ def check_cuda():
 def generate_lstm(data_path='data.pkl' ,
                   save_path='lstm.pt',
                   sentence_len=25,
-                  temperature=1.0,
+                  temperature=2.0,
                   seed=1234):
     """
     Generates sentence based on trained lstm model
@@ -65,7 +65,9 @@ def generate_lstm(data_path='data.pkl' ,
 
             # change eos to newline
             if word == "<eos>":
-                sentence.append('\n')
+                # Don't append new line to first char
+                if len(sentence) != 0:
+                    sentence.append('\n')
             else:
                 sentence.append(word)
 
