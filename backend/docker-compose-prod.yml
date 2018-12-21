@@ -5,23 +5,22 @@ services:
   generator:
     build:
       context: ./services/generator
-      dockerfile: Dockerfile-dev
-    ports:
-      - 5001:5000
+      dockerfile: Dockerfile-prod
+    expose:
+      - '5000'
     environment:
       - FLASK_APP=project/__init__.py
-      - FLASK_ENV=development
-      - FLASK_DEBUG=1
-      - APP_SETTINGS=project.config.DevelopmentConfig
+      - FLASK_ENV=production
+      - FLASK_DEBUG=0
+      - APP_SETTINGS=project.config.ProductionConfig
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
-
 
   nginx:
     container_name: nginx
     build:
       context: ./services/nginx
-      dockerfile: Dockerfile-dev
+      dockerfile: Dockerfile-prod
     restart: always
     ports:
       - 80:80

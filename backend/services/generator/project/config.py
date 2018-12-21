@@ -11,6 +11,7 @@ class DevelopmentConfig(BaseConfig):
     """
     pass
 
+
 class TestingConfig(BaseConfig):
     """
     Testing Config
