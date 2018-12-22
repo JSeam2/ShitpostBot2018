@@ -3,3 +3,4 @@ facebook-joshiaseam/
 *.pkl
 __pycache__
 *.pt
+.DS_Store
