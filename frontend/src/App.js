@@ -103,7 +103,7 @@ class App extends Component {
           />
           <GenBox
             title="LSTM Generator"
-            endpoint="http://ec2-3-81-33-174.compute-1.amazonaws.com/generator/lstm"
+            endpoint="https://d2fda80mtz9ajc.cloudfront.net/generator/lstm"
             timeout={this.state.timeout}
           />
           <Footer timeout={this.state.timeout} />
