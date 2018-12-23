@@ -35,7 +35,7 @@ class Main extends React.Component {
             <p>
               Contact Me:
               <ul>
-                <li><a href="www.jseam.com">Blog</a></li>
+                <li><a href="http://www.jseam.com">Blog</a></li>
                 <li><a href="https://medium.com/@jseam">Medium</a></li>
                 <li><a href="https://www.instagram.com/positivitynoh8/">Instagram</a></li>
                 <li><a href="https://twitter.com/positivitynoh8/">Twitter</a></li>
