@@ -34,7 +34,7 @@ class GenBox extends React.Component {
     return(
       <div id="footer" className="box" style={this.props.timeout ? {display: 'none'} : {}}>
         <center>
-        <h2 className="major">{this.props.title}</h2>
+        <h2>{this.props.title}</h2>
           <button className="button" onClick={() => this.getData()}>Generate</button>
           <div className="box">
             <p id="lstm-text" className="gen-text" style={{ whiteSpace: 'pre-wrap' }}>{this.state.text}</p>

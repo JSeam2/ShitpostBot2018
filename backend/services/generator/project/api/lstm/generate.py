@@ -20,7 +20,7 @@ def check_cuda():
     return device, device_type
 
 
-def generate_lstm(data_path='data.pkl' ,
+def generate_lstm(data_path='data.pkl',
                   save_path='lstm.pt',
                   sentence_len=25,
                   temperature=0.7,

@@ -4,7 +4,7 @@ import os
 from flask import Blueprint, jsonify
 
 from project.api.lstm import generate
-
+from project.api.markov import markov
 
 generator_blueprint = Blueprint("generator", __name__)
 
@@ -37,6 +37,22 @@ def generate_lstm():
                                   sentence_len=sentence_len,
                                   temperature=0.6,
                                   seed=val)
+
+    return jsonify({
+        'status': 'success',
+        'message': text
+    }), 200
+
+
+@generator_blueprint.route("/generator/markov", methods=['GET'])
+def generate_markov():
+    # get current file path
+    path = os.path.dirname(os.path.abspath(__file__))
+
+    saved_model = os.path.join(path, "markov", "markov_model.json")
+
+    # Generate text
+    text = markov.generate_markov(saved_model=saved_model)
 
     return jsonify({
         'status': 'success',

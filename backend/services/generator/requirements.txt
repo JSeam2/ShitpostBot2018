@@ -19,3 +19,4 @@ Unidecode==1.0.23
 Werkzeug==0.14.1
 gunicorn==19.8.1
 Flask-Cors==3.0.6
+markovify==0.7.1
