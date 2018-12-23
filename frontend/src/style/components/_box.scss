@@ -11,13 +11,14 @@
 			'transform #{_duration(article)} ease-in-out',
 			'filter #{_duration(article)} ease-in-out',
 			'opacity #{_duration(article)} ease-in-out',
-		));		
+		));
 		border-radius: _size(border-radius);
 		border: solid _size(border-width) _palette(border);
 		margin-top: _size(element-margin);
 		margin-bottom: _size(element-margin);
 		padding: 2em;
 		max-width: 100%;
+		min-width: 50%;
 
 		> :last-child,
 		> :last-child > :last-child,

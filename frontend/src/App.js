@@ -107,7 +107,7 @@ class App extends Component {
             timeout={this.state.timeout}
           />
           <GenBox
-            title="LSTM Generator"
+            title="LSTM RNN Generator"
             endpoint="https://d2fda80mtz9ajc.cloudfront.net/generator/lstm"
             timeout={this.state.timeout}
           />
