@@ -111,6 +111,11 @@ class App extends Component {
             endpoint="https://d2fda80mtz9ajc.cloudfront.net/generator/lstm"
             timeout={this.state.timeout}
           />
+          <GenBox
+            title="GAN Generator (TODO)"
+            endpoint=""
+            timeout={this.state.timeout}
+          />
           <Footer timeout={this.state.timeout} />
         </div>
         {/*<div id="bg"></div>*/}
