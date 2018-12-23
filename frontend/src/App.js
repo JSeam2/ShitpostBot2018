@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
-import './App.css';
+import './style/main.scss';
 
 import Header from './components/Header';
 import Main from './components/Main';
+import Footer from './components/Footer';
 
 class App extends Component {
   constructor(props){
@@ -99,7 +100,7 @@ class App extends Component {
             onCloseArticle={this.handleCloseArticle}
             setWrapperRef={this.setWrapperRef}
           />
-          {/* <Footer timeout={this.state.timeout} /> */}
+          <Footer timeout={this.state.timeout} />
         </div>
         {/*<div id="bg"></div>*/}
       </div>

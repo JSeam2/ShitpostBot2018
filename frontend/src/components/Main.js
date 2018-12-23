@@ -13,6 +13,9 @@ class Main extends React.Component {
           {/*<span className="image main"></span> to add header image*/}
           <p>
             <strong>Is it possible to reanimate ourselves in the event of death?</strong>
+          </p>
+
+          <p>
             While it appears difficult to upload our entire consciousness and store that consciousness in a digital form,
             social media appears to be a good enough approximation. We post our thoughts in the form of text or images.
             The ideas we subscribe and the scenes we capture are indicative of our conscious experience in that moment in time.
@@ -27,6 +30,16 @@ class Main extends React.Component {
             We investigate on a few generative techniques: Markov Chain Generation, Recurrent Neural Networks, and Generative Adverserial Networks.
             The current state of generative techniques are by no means perfect or close to the abilities of a human being.
             As such, this project remains as a work in progress. With newer advances in AI, we will improve the model when time permits.
+          </p>
+
+          <p>
+            Contact Me:
+            <ul>
+              <li><a href="www.jseam.com">Blog</a></li>
+              <li><a href="https://medium.com/@jseam">Medium</a></li>
+              <li><a href="https://www.instagram.com/positivitynoh8/">Instagram</a></li>
+              <li><a href="https://twitter.com/positivitynoh8/">Twitter</a></li>
+            </ul>
           </p>
           {close}
         </article>

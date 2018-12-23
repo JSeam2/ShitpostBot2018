@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## References
+Styling was referenced from [gatsby-starter-dimension](https://github.com/codebushi/gatsby-starter-dimension)
+
 ## Available Scripts
 
 In the project directory, you can run:
