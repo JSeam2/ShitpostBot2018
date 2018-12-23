@@ -7,10 +7,17 @@
 /* Box */
 
 	.box {
+		@include vendor('transition', (
+			'transform #{_duration(article)} ease-in-out',
+			'filter #{_duration(article)} ease-in-out',
+			'opacity #{_duration(article)} ease-in-out',
+		));		
 		border-radius: _size(border-radius);
 		border: solid _size(border-width) _palette(border);
+		margin-top: _size(element-margin);
 		margin-bottom: _size(element-margin);
-		padding: 1.5em;
+		padding: 2em;
+		max-width: 100%;
 
 		> :last-child,
 		> :last-child > :last-child,
@@ -23,4 +30,11 @@
 			border-radius: 0;
 			padding: 0;
 		}
+
+
+	}
+	.gen-text {
+		border-radius: _size(border_radius);
+	    font-family: 'Inconsolata', monospace;
+	    font-weight: 1em;
 	}

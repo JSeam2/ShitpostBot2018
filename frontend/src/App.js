@@ -5,6 +5,7 @@ import './style/main.scss';
 import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
+import GenBox from './components/GenBox';
 
 class App extends Component {
   constructor(props){
@@ -99,6 +100,11 @@ class App extends Component {
             article={this.state.article}
             onCloseArticle={this.handleCloseArticle}
             setWrapperRef={this.setWrapperRef}
+          />
+          <GenBox
+            title="LSTM Generator"
+            endpoint="http://ec2-3-81-33-174.compute-1.amazonaws.com/generator/lstm"
+            timeout={this.state.timeout}
           />
           <Footer timeout={this.state.timeout} />
         </div>

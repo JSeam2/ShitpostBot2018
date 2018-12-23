@@ -18,3 +18,4 @@ tqdm==4.28.1
 Unidecode==1.0.23
 Werkzeug==0.14.1
 gunicorn==19.8.1
+Flask-Cors==3.0.6
