@@ -32,6 +32,11 @@ class Main extends React.Component {
             </p>
 
             <p>
+              The data was obtained from my facebook data. You can download text data from facebook as json file.
+              Do note that, the generated text does not necessarily reflect my views.
+            </p>
+
+            <p>
               Contact Me:
               <ul>
                 <li><a href="http://www.jseam.com">Blog</a></li>
