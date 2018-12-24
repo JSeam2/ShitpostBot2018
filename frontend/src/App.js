@@ -103,12 +103,12 @@ class App extends Component {
           />
           <GenBox
             title="Markov Chain Generator"
-            endpoint="https://d2fda80mtz9ajc.cloudfront.net/generator/markov"
+            endpoint="https://d2nzkaujplb9m9.cloudfront.net/generator/markov"
             timeout={this.state.timeout}
           />
           <GenBox
             title="LSTM RNN Generator"
-            endpoint="https://d2fda80mtz9ajc.cloudfront.net/generator/lstm"
+            endpoint="https://d2nzkaujplb9m9.cloudfront.net/generator/lstm"
             timeout={this.state.timeout}
           />
           <GenBox

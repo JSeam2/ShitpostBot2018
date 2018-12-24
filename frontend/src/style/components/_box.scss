@@ -17,7 +17,7 @@
 		margin-top: _size(element-margin);
 		margin-bottom: _size(element-margin);
 		padding: 2em;
-		max-width: 100%;
+		max-width: 70%;
 		min-width: 50%;
 
 		> :last-child,
@@ -34,8 +34,34 @@
 
 
 	}
-	.gen-text {
-		border-radius: _size(border_radius);
-	    font-family: 'Inconsolata', monospace;
-	    font-weight: 1em;
+	.gen-box {
+		@include vendor('transition', (
+			'transform #{_duration(article)} ease-in-out',
+			'filter #{_duration(article)} ease-in-out',
+			'opacity #{_duration(article)} ease-in-out',
+		));
+		border-radius: _size(border-radius);
+		border: solid _size(border-width) _palette(border);
+		margin-top: _size(element-margin);
+		margin-bottom: _size(element-margin);
+		padding: 2em;
+		max-width: 80%;
+		min-width: 80%;
+
+		font-family: 'Inconsolata', monospace;
+		font-weight: 1em;
+
+		> :last-child,
+		> :last-child > :last-child,
+		> :last-child > :last-child > :last-child {
+			margin-bottom: 0;
+		}
+
+		&.alt {
+			border: 0;
+			border-radius: 0;
+			padding: 0;
+		}
+
+
 	}
