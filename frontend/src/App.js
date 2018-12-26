@@ -102,17 +102,17 @@ class App extends Component {
             setWrapperRef={this.setWrapperRef}
           />
           <GenBox
-            title="Markov Chain Generator"
+            title="Markov Chain Post Generator"
             endpoint="https://d2nzkaujplb9m9.cloudfront.net/generator/markov"
             timeout={this.state.timeout}
           />
           <GenBox
-            title="LSTM RNN Generator"
+            title="LSTM RNN Post Generator"
             endpoint="https://d2nzkaujplb9m9.cloudfront.net/generator/lstm"
             timeout={this.state.timeout}
           />
           <GenBox
-            title="GAN Generator (TODO)"
+            title="GAN Post Generator (TODO)"
             endpoint=""
             timeout={this.state.timeout}
           />

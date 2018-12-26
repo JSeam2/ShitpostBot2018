@@ -36,7 +36,7 @@ class GenBox extends React.Component {
         <center>
         <h2>{this.props.title}</h2>
           <button className="button" onClick={() => this.getData()}>Generate</button>
-          <div className="gen-box">
+          <div onClick={() => this.getData()} className="gen-box">
             <p id="lstm-text" style={{ whiteSpace: 'pre-wrap' }}>{this.state.text}</p>
           </div>
         </center>
